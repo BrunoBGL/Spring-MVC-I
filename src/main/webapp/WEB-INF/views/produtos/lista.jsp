@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>Lista de Produtos</h1>
+	<span style="font-size: 1em;">${sucesso}</span>
 	<table>
 		<tr>
 			<td>Tìtulo</td>
