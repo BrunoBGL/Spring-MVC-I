@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
@@ -36,7 +37,7 @@
 				<nav id="main-nav">
 
 					<ul class="clearfix">
-						<li><a href="/carrinho" rel="nofollow">Carrinho</a></li>
+						<li><a href="/carrinho" rel="nofollow">Carrinho (${carrinhoCompras.quantidade})</a></li>
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
 						<li><a href="/pages/perguntas-frequentes" rel="nofollow">Perguntas Frequentes</a></li>
 					</ul>
@@ -57,7 +58,7 @@
 		</ul>
 	</nav>
 
-	<article id="${produto}">
+	<article id="${produto.id}">
 		<header id="product-highlight" class="clearfix">
 			<div id="product-overview" class="container">
 				<img width="280px" height="395px" src="http://cdn.shopify.com/s/files/1/0155/7645/products/css-eficiente-featured_large.png?v=1435245145"
@@ -71,8 +72,8 @@
 		</header>
 
 		<section class="buy-options clearfix">
-			<form action="/carrinho/add" method="post" class="container">
-				<input type="hidden" value="${produto}" name="produtoId" >
+			<form action= '<c:url value="/carrinho/add"/>' method="post" class="container">
+				<input type="hidden" value="${produto.id}" name="produtoId" >
 				<ul id="variants" class="clearfix">
 					<c:forEach items="${produto.precos }" var="preco"> 
 						<li class="buy-option">
@@ -102,7 +103,7 @@
 					Número de páginas: <span>${produto.paginas}</span>
 				</p>
 				<p></p>
-				<p>Data de publicação: ${produto.dataLancamento}</p>
+				<p>Data de publicação: <fmt:formatDate pattern="dd/MM/YYYY" value="${produto.dataLancamento.time}"/></p>
 				<p>
 					Encontrou um erro? <a href='/submissao-errata' target='_blank'>Submeta uma errata</a>
 				</p>
