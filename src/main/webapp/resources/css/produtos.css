@@ -153,7 +153,7 @@
 }
 
 .submit-image:after {
-    content: "Comprar";
+    content: "Adicionar ao Carrinho";
     margin-right: 0.3em;
     vertical-align: middle;
 }
