@@ -7,15 +7,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 
 @Component
-@Scope(value=WebApplicationContext.SCOPE_SESSION)
+@Scope(value=WebApplicationContext.SCOPE_SESSION , proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class CarrinhoCompras implements Serializable {
 
-	private static final long serialVersionUID = -2106272778536854933L;
+	private static final long serialVersionUID = -2106272778536854933L; 
 	
 	private Map<CarrinhoItem, Integer> itens = new LinkedHashMap<CarrinhoItem, Integer>();
 	
@@ -44,8 +45,16 @@ public class CarrinhoCompras implements Serializable {
 	
 	public BigDecimal getTotal() {
 		BigDecimal total = BigDecimal.ZERO;
-		itens.keySet().stream().forEach(i -> total.add(getTotal(i)));
+		for(CarrinhoItem item: itens.keySet()) {
+			total = total.add(getTotal(item));
+		}
 		return total;
+	}
+
+	public void remover(Integer produtoId, TipoPreco tipoPreco) {
+		Produto produto = new Produto();
+		produto.setId(produtoId);
+		itens.remove(new CarrinhoItem(produto, tipoPreco));
 	}
 	
 }

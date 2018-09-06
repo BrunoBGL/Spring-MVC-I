@@ -9,6 +9,11 @@ public class CarrinhoItem {
 	
 	
 
+	@Override
+	public String toString() {
+		return "CarrinhoItem [tipoPreco=" + tipoPreco + ", produto=" + produto + "]";
+	}
+
 	public CarrinhoItem(Produto produto, TipoPreco tipoPreco) {
 		super();
 		this.tipoPreco = tipoPreco;
